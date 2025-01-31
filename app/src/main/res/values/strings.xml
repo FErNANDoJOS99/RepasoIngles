@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="key">Key</string>
+    <string name="value">Value</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="mostrar">mostrar</string>
+    <string name="archivo">Archivo</string>
+    <string name="archivo1">Archivo</string>
+    <string name="escoger">Escoger</string>
+    <string name="anterior">Anterior</string>
+    <string name="ayuda">Ayuda</string>
+</resources>
