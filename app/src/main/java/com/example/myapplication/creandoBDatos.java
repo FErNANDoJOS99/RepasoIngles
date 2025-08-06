@@ -22,7 +22,7 @@ public class creandoBDatos{
         this.contexto = contexto;
 
         // Inicializamos la base de datos
-        usdbh = new UsuariosSQLiteHelper(contexto, "DBUsuarios", null, 7);
+        usdbh = new UsuariosSQLiteHelper(contexto, "DBUsuarios", null, 9);
 
 
         // Abrir la base de datos en modo escritura
@@ -35,7 +35,7 @@ public class creandoBDatos{
         File directorioPrivado = contexto.getExternalFilesDir(null);
 
         File archivo = new File(directorioPrivado, "Diccionario"+"6"+".txt");
-        //  File archivo = new File(directorioPrivado, "Diccionario1"+".txt");
+          //File archivo = new File(directorioPrivado, "Diccionario1"+".txt");
 
 
         LinkedList<String> listaElementos = new LinkedList<>();

@@ -66,19 +66,12 @@ public class MainActivity extends navBar {
 
 
 
-//        //Para la base de datos
-//        UsuariosSQLiteHelper usdbh =
-//                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
-//
-//
-//
-//        // Abrir la base de datos en modo escritura
-//        SQLiteDatabase db = usdbh.getWritableDatabase();
-//
 
-
-
-
+        try {
+            creandoBDatos hola = new creandoBDatos (this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
         //Cambio de orden en el key y value"
@@ -104,7 +97,7 @@ public class MainActivity extends navBar {
 
         //Para instanciar la base de datos
         UsuariosSQLiteHelper usdbh =
-                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 9);
 
         // Abrir la base de datos en modo escritura
         SQLiteDatabase db = usdbh.getWritableDatabase();
