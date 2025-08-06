@@ -37,30 +37,44 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+
+
+//Tengo que ver la base de datos formalmente
+// Lo mas importante separar entre las 2 opciones de incio
+//seperar las funciones para que pueda crecer
+
+
+
 // Tengo que pensar en la logica que va a llevar y separar todo en metodos
 //EN LA LOGICA PENSAR EN LOS RANGOS
 // subirlo a github
 
 
-public class MainActivity extends AppCompatActivity {
+
+
+public class MainActivity extends navBar {
+    /* Para que aparezca la barra de navegacion tengo que extender de navBar
+     * Ademas tengo que cambiar el setContainView por el getLayoutInflater(dsfsdfsd) y ya
+     * no tengo que moverle al AndroidManifest
+     * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        getLayoutInflater().inflate(R.layout.activity_main,findViewById(R.id.container));
 
 
 
-        //Para la base de datos
-        UsuariosSQLiteHelper usdbh =
-                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 4);
-
-
-
-        // Abrir la base de datos en modo escritura
-        SQLiteDatabase db = usdbh.getWritableDatabase();
-
+//        //Para la base de datos
+//        UsuariosSQLiteHelper usdbh =
+//                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
+//
+//
+//
+//        // Abrir la base de datos en modo escritura
+//        SQLiteDatabase db = usdbh.getWritableDatabase();
+//
 
 
 
@@ -87,83 +101,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // ESTO ES PARA PASAR TODO EL ARCHIVO A LA BASE DE DATOS
 
+        //Para instanciar la base de datos
+        UsuariosSQLiteHelper usdbh =
+                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 7);
 
-        File directorioPrivado = MainActivity.this.getExternalFilesDir(null);
-
-        File archivo = new File(directorioPrivado, "Diccionario"+"0"+".txt");
-        //  File archivo = new File(directorioPrivado, "Diccionario1"+".txt");
-
-
-        LinkedList<String> listaElementos = new LinkedList<>();
-        final String[] cadenaActual = {""};
-
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(archivo));
-            StringBuilder contenido = new StringBuilder();
-            String linea;
-            Log.i("Tag", "paso linea: ");
-
-            while ((linea = reader.readLine()) != null) {
-                Log.i("Tag", "entra al if : ");
-                if (linea.trim().isEmpty()) {
-                    continue; // Saltar esta iteración
-                }
-
-                //listaElementos contiene todas las lineas con texto
-                listaElementos.add(linea);
-                String[] partes = linea.split(";|:|=");
+        // Abrir la base de datos en modo escritura
+        SQLiteDatabase db = usdbh.getWritableDatabase();
 
 
 
-                //PARA VALIDAR SI TIENE LA ESTRUCTURA CORRECTA LA LINEA LEIDA
-
-                String espaniol ="";
-                String ingles="";
-                if (partes.length ==2){
-                    ingles=partes[0];
-                    espaniol=partes[1];
-                }
-                else {
-                    ingles=partes[0];
-                    espaniol="error* ";
-                }
-
-
-
-
-                db = usdbh.getWritableDatabase();
-
-                //hacemos un contenValues
-                ContentValues values2 = new ContentValues();
-                try {
-
-
-                    values2.put("ingles",ingles);
-                    //Log.i("dfsfdsdffd", contrasenia.getText().toString());
-                    values2.put("espaniol",espaniol );
-                    values2.put("priori_repeticion",1 );
-
-                    // Inserta o lanza error , depende si los valores ingresados son correctos
-                    db.insertOrThrow("Palabras", null, values2);  // Usa insertOrThrow para lanzar una excepción en caso de error
-
-                } catch (SQLiteConstraintException e) {
-                    Log.e("SQLite", e.toString() + values2);
-                }
-
-
-
-
-
-                Log.i("Tag", "sale del if: ");
-
-            }
-
-            reader.close();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
 
@@ -178,14 +125,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //hace una lista
+
+        //hace una lista de la longitud de la base de datos
         List<Integer> lista = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
             lista.add(i);
         }
-
-
-
+        //Barajea la lista
         Collections.shuffle(lista);
 
 
@@ -193,14 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        //Para imprimir todos los valores en consola
 
-
-
-
-
-        //ahora hay que imprimirlos en consola
-
-        //Vamos a ver todos los datos
+        /*
         Cursor c = db.rawQuery("SELECT * FROM Palabras", null);
 
         if (c.moveToFirst()) {
@@ -220,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         // Cerrar el cursor y la base de datos
         c.close();
 
-
+        */
 
 
 
@@ -233,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
+        //TODO  Tengo que hacer esta variable persistente a reinicios
+        final int[] restantelista = {lista.size()};
+
 
 
 
@@ -241,7 +185,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        // EL boton siguiente
+
         final Button btnSiguiente = (Button)findViewById(R.id.BtnSiguiente);
+        //variable contador se usa para saber si ya se apreto una vez el boton
         final int[] contador = {0};
         String [] espaniol1={""};
 
@@ -249,13 +196,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                //si solo se ha apretado una vez el boton
                 if (contador[0] < 1){
-                    Log.i("Tag", "onClickSiguiente : ");
 
-                    SQLiteDatabase db = usdbh.getReadableDatabase();
+                    SQLiteDatabase db = usdbh.getWritableDatabase();
 
-                    //borra el contenido de value anterior
+                    //borra el contenido de value anterior (por comodidad)
                     TextView textView = findViewById(R.id.TextView02_1);
                     textView.setText("");
 
@@ -263,13 +209,23 @@ public class MainActivity extends AppCompatActivity {
 
                     if (iterador.hasNext()) {
                         int numero = iterador.next();
-                        System.out.println("el numero del iterador es "+ numero);
-                        Cursor cursor = db.rawQuery("SELECT * FROM Palabras WHERE id = ?", new String [] {String.valueOf(numero)});
+                        //System.out.println("el numero del iterador es "+ numero);
+                        Cursor cursor = db.rawQuery("SELECT * FROM Palabras WHERE id = ? AND priori_visto != ?", new String [] {String.valueOf(numero),"1"});
+
+
+                        // TODO  Aqui tengo que llamar la base de datos y mediante la lista actualizar el valor de las
+                        //palabras ya vistas
+
 
                         if (cursor.moveToFirst()) { //requiere el moveToFirst
                             String ingles1 = cursor.getString(indices[0]);
                             espaniol1[0] = cursor.getString(indices[1]);
                             textView.setText(ingles1);
+                            textView = findViewById(R.id.TextView04);
+                            restantelista[0] = restantelista[0] -1;
+                            textView.setText(""+ restantelista[0]);
+
+
                         }
                         else {
                             System.out.println("no va a imprimir ndad");
@@ -281,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     contador[0]++;
                 }else {
-                    System.out.println("si entra ");
+
                         TextView textView = findViewById(R.id.TextView02_1);
                         textView.setText(espaniol1[0]);
                         contador[0]=0;

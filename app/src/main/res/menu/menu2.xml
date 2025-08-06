@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--never significa que nunca va a aparecer en la accion bar
+    ifRoom , es que va a aparecer solo si hay espacio-->
+    <item
+        android:id="@+id/menu_profile"
+        android:title="@string/profile2"
+       />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:title="@string/searchtrainer"
+         />
+    <item
+        android:id="@+id/menu_info"
+        android:title="@string/calendar2"
+        />
+    <item
+        android:id="@+id/menu_modify_Plan"
+        android:title="@string/foods"
+       />
+
+
+    <item
+        android:id="@+id/menu_share"
+        android:title="@string/goals"
+        />
+
+    <item
+        android:id="@+id/menu_exit"
+        android:title="@string/news"/>
+
+</menu>

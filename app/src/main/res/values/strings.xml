@@ -9,4 +9,20 @@
     <string name="escoger">Escoger</string>
     <string name="anterior">Anterior</string>
     <string name="ayuda">Ayuda</string>
+    <string name="navigation_drawer_open" />
+    <string name="navigation_drawer_close" />
+    <string name="profile">profile</string>
+    <string name="settingsss">settingsss</string>
+    <string name="menu_informacion">menu_informacion</string>
+    <string name="menunuevo">menunuevo</string>
+    <string name="datos_usuario">datos_usuario</string>
+    <string name="closesession">closeSession</string>
+    <string name="searchTrainer" />
+    <string name="calendar" />
+    <string name="profile2">profile</string>
+    <string name="searchtrainer">searchTrainer</string>
+    <string name="calendar2">calendar</string>
+    <string name="foods">foods</string>
+    <string name="goals">goals</string>
+    <string name="news">news</string>
 </resources>

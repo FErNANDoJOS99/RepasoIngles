@@ -15,7 +15,7 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             " espaniol TEXT , " +
             " ingles  TEXT NOT NULL  UNIQUE, " +
-            " priori_repeticion  INTEGER, " +
+            " priori_visto  INTEGER, " +
             " priori_repaso INTEGER );";
 
 
